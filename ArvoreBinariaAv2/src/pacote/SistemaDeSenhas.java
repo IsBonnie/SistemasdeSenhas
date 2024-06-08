@@ -11,7 +11,7 @@ public class SistemaDeSenhas {
             raiz = new No();
         }
 
-        public void insereLogin(String senha, String usuario) {
+        public void inserirLogin(String senha, String usuario) {
             No atual = raiz;
             for (char c : senha.toCharArray()) {
                 if (c == '0') {
@@ -29,31 +29,11 @@ public class SistemaDeSenhas {
             atual.usuario = usuario;
         }
 
-        public boolean removeLogin(String senha) {
-            return removeLogin(raiz, senha, 0);
+        public boolean removerLogin(String senha) {
+            return removerLogin(raiz, senha, 0);
         }
 
-        private boolean removeLogin(No atual, String senha, int depth) {
-            if (atual == null) {
-                return false;
-            }
-            if (depth == senha.length()) {
-                if (atual.usuario != null) {
-                    atual.usuario = null;
-                    return true;
-                }
-                return false;
-            }
-            char c = senha.charAt(depth);
-            if (c == '0') {
-                return removeLogin(atual.esquerda, senha, depth + 1);
-            } else if (c == '1') {
-                return removeLogin(atual.direita, senha, depth + 1);
-            }
-            return false;
-        }
-
-        public boolean validaLogin(String senha, String usuario) {
+        public boolean validarLogin(String senha, String usuario) {
             No atual = raiz;
             for (char c : senha.toCharArray()) {
                 if (c == '0') {
@@ -67,6 +47,26 @@ public class SistemaDeSenhas {
             }
             return usuario.equals(atual.usuario);
         }
+
+    private boolean removerLogin(No atual, String senha, int depth) {
+        if (atual == null) {
+            return false;
+        }
+        if (depth == senha.length()) {
+            if (atual.usuario != null) {
+                atual.usuario = null;
+                return true;
+            }
+            return false;
+        }
+        char c = senha.charAt(depth);
+        if (c == '0') {
+            return removerLogin(atual.esquerda, senha, depth + 1);
+        } else if (c == '1') {
+            return removerLogin(atual.direita, senha, depth + 1);
+        }
+        return false;
+    }
         
     }
 
